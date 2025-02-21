@@ -13,7 +13,7 @@ export default function Home() {
           priority
         />
         <h1 className={`mb-3 text-2xl font-semibold`}>
-          Vercel Deploy Test{' '}
+          Preview Environment Test{' '}
         </h1>
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
