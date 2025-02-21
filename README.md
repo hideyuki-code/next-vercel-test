@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Vercel Test Project
 
-## Getting Started
+このプロジェクトは、Next.jsアプリケーションをVercelにデプロイし、GitHub Actionsを使用して継続的デプロイメントを実現するテストプロジェクトです。
 
-First, run the development server:
+## デプロイメントフロー
+
+### 目的
+- チームメンバー全員がVercelアカウントを持つことなく、デプロイプロセスに参加できるようにする
+- GitHubのプルリクエストとマージフローを通じて、安全かつ効率的なデプロイを実現する
+
+### 仕組み
+1. 開発フロー
+   - `feature/*` ブランチで機能開発
+   - `develop` ブランチで開発版の統合
+   - `main` ブランチで本番環境のデプロイ
+
+2. デプロイメント
+   - GitHub Actionsを使用
+   - `develop` から `main` へのマージをトリガーとして自動デプロイ
+   - Vercelのデプロイトークンを使用（GitHub Secretsで管理）
+
+### メリット
+- チームメンバーは個別のVercelアカウントが不要
+- 通常のGitHub操作だけでデプロイが可能
+- デプロイプロセスの一元管理が可能
+
+## 開発環境
+
+- Node.js
+- Next.js
+- Bun (パッケージマネージャー)
+- TypeScript
+
+## セットアップ
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# 依存関係のインストール
+bun install
+
+# 開発サーバーの起動
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ブランチ戦略
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. 機能開発
+   ```bash
+   git checkout -b feature/新機能名
+   # 開発作業
+   git push origin feature/新機能名
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. 開発版への統合
+   - `feature/新機能名` から `develop` へプルリクエスト
+   - レビュー後、マージ
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. 本番環境へのデプロイ
+   - `develop` から `main` へプルリクエスト
+   - レビュー後、マージ
+   - GitHub Actionsが自動的にVercelへデプロイ
